@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商業廣告作品事業工作室 — 作品集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+TC:wght@300;400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --gold: #c9a84c;
+    --gold-dim: #7a6230;
+    --text: #e8e2d9;
+    --text-dim: #888070;
+    --border: rgba(201,168,76,0.18);
+    --card-bg: #141414;
+  }
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: "Montserrat", sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+  /* GATE */
+  #gate { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease; }
+  #gate.fade-out { opacity: 0; pointer-events: none; }
+  .gate-ornament { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin-bottom: 2rem; animation: pulse 3s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+  .gate-logo { font-family: "Cormorant Garamond", serif; font-size: 2.8rem; font-weight: 300; letter-spacing: 0.35em; color: var(--gold); margin-bottom: 0.3rem; }
+  .gate-sub { font-family: "Montserrat", sans-serif; font-size: 0.6rem; letter-spacing: 0.5em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 3rem; }
+  .gate-form { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 300px; }
+  .gate-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--gold-dim); padding: 0.6rem 0; font-family: "Montserrat", sans-serif; font-size: 0.9rem; letter-spacing: 0.2em; color: var(--text); text-align: center; outline: none; transition: border-color 0.3s; }
+  .gate-input::placeholder { color: var(--text-dim); font-size: 0.75rem; letter-spacing: 0.3em; }
+  .gate-input:focus { border-bottom-color: var(--gold); }
+  .gate-btn { margin-top: 0.5rem; background: transparent; border: 1px solid var(--gold-dim); color: var(--gold); font-family: "Montserrat", sans-serif; font-size: 0.7rem; letter-spacing: 0.45em; text-transform: uppercase; padding: 0.8rem 2.5rem; cursor: pointer; transition: all 0.3s; }
+  .gate-btn:hover { background: var(--gold); color: #0a0a0a; border-color: var(--gold); }
+  .gate-error { font-size: 0.7rem; letter-spacing: 0.15em; color: #c07070; min-height: 1.2rem; }
+
+  /* MAIN */
+  #main { display: none; min-height: 100vh; }
+  header { padding: 1.5rem 4rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); z-index: 100; }
+  .logo { font-family: "Cormorant Garamond", serif; font-size: 1.5rem; letter-spacing: 0.3em; color: var(--gold); font-weight: 300; } .logo span { font-size: 0.6rem; font-family: "Montserrat", sans-serif; letter-spacing: 0.5em; color: var(--text-dim); display: block; margin-top: 2px; font-weight: 300; }
+  .header-right { font-size: 0.62rem; letter-spacing: 0.35em; color: var(--text-dim); text-transform: uppercase; }
+
+  /* TABS */
+  .tabs-section { padding: 2.5rem 4rem 0; }
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .tab { font-family: "Montserrat", sans-serif; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); padding: 1rem 1.6rem 1rem; cursor: pointer; border: none; background: transparent; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.25s; white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* GRID */
+  .grid-section { padding: 2.5rem 4rem 4rem; }
+  .section-label { font-family: "Cormorant Garamond", serif; font-size: 1.05rem; font-weight: 300; letter-spacing: 0.25em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1.2rem; }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+  .card:hover { border-color: var(--gold-dim); transform: translateY(-3px); }
+  .card:hover .play-btn { opacity: 1; }
+  .card-thumb { width: 100%; aspect-ratio: 16/9; background: var(--bg3); position: relative; overflow: hidden; }
+  .card-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.3s, transform 0.5s; }
+  .card:hover .card-thumb img { opacity: 0.9; transform: scale(1.04); }
+  .thumb-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--bg3); }
+  .thumb-placeholder svg { opacity: 0.15; }
+  .play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+  .play-circle { width: 52px; height: 52px; border: 1.5px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); }
+  .play-circle svg { margin-left: 3px; }
+  .card-info { padding: 1rem 1.2rem 1.2rem; }
+  .card-tag { font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.4rem; display: block; }
+  .card-title { font-family: "Noto Serif TC", serif; font-size: 0.88rem; font-weight: 300; color: var(--text); line-height: 1.5; }
+
+  /* MODAL */
+  #modal { display: none; position: fixed; inset: 0; z-index: 9000; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 2rem; animation: fadeIn 0.2s ease; }
+  #modal.open { display: flex; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .modal-inner { width: 100%; max-width: 900px; position: relative; }
+  .modal-close { position: absolute; top: -2.5rem; right: 0; background: none; border: none; color: var(--text-dim); font-family: "Montserrat", sans-serif; font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; cursor: pointer; transition: color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+  .modal-close:hover { color: var(--gold); }
+  .modal-title { font-family: "Noto Serif TC", serif; font-size: 0.9rem; color: var(--text-dim); letter-spacing: 0.1em; margin-top: 1rem; }
+  .video-wrap { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
+  .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+  .vimeo-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; background: var(--bg2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.75rem; letter-spacing: 0.2em; text-align: center; padding: 2rem; }
+  .vimeo-placeholder .vid-id { font-family: "Montserrat", sans-serif; font-size: 0.65rem; color: var(--gold-dim); letter-spacing: 0.3em; margin-top: 0.3rem; }
+
+  @media (max-width: 768px) {
+    header { padding: 1.2rem 1.5rem; }
+    .tabs-section { padding: 1.5rem 1.5rem 0; }
+    .grid-section { padding: 1.5rem 1.5rem 3rem; }
+    .grid { grid-template-columns: 1fr; }
+    .header-logo { height: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="gate">
+  <div class="gate-ornament"></div>
+  <div class="gate-logo">商業廣告作品</div>
+  <div class="gate-sub">作品集 &middot; Portfolio &middot; Private Access</div>
+  <div class="gate-form">
+    <input class="gate-input" id="pw-input" type="password" placeholder="輸入密碼" autocomplete="off" />
+    <div class="gate-error" id="pw-error"></div>
+    <button class="gate-btn" onclick="checkPassword()">進入</button>
+  </div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<div id="main">
+  <header>
+    <div class="logo">商業廣告作品<span>作品集 · Portfolio</span></div>
+    <div class="header-right">客戶專屬 &middot; Private Access</div>
+  </header>
+
+  <div class="tabs-section">
+    <div class="tabs" id="tabs">
+      <button class="tab active" onclick="filterCategory('all', this)">全部作品</button>
+      <button class="tab" onclick="filterCategory('形象影片', this)">形象影片</button>
+      <button class="tab" onclick="filterCategory('活動紀錄', this)">活動紀錄</button>
+      <button class="tab" onclick="filterCategory('紀錄片', this)">紀錄片</button>
+      <button class="tab" onclick="filterCategory('廣告', this)">廣告</button>
+      <button class="tab" onclick="filterCategory('短影音', this)">短影音</button>
+      <button class="tab" onclick="filterCategory('剪輯', this)">剪輯</button>
+    </div>
+  </div>
+
+  <div class="grid-section">
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<!-- ═══ MODAL ═══ -->
+<div id="modal" onclick="closeModalOnBg(event)">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+        <line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" stroke-width="1.2"/>
+        <line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+      關閉
+    </button>
+    <div class="video-wrap" id="video-wrap"></div>
+    <div class="modal-title" id="modal-title"></div>
+  </div>
+</div>
+
+<script>
+// ── 密碼設定：修改這裡 ──────────────────
+const PASSWORD = 'WINWIN';
+// ────────────────────────────────────────
+
+// ── 影片資料：填入你的 Vimeo 影片 ID ──────
+// youtubeId: 到 Vimeo 影片頁面，URL 最後那串數字就是 ID
+// thumb: 可填 Vimeo 縮圖 URL，或留空 ''
+const VIDEOS = [
+  // ── 形象影片（巨大捷安特優先）──
+  { category: '形象影片', title: '巨大集團捷安特環保形象影片', youtubeId: 'r3hNujbXc6g', thumb: '' },
+  { category: '形象影片', title: '巨大捷安特 ESG 形象影片 A Choice', youtubeId: 'RYQmAKCTiGE', thumb: '' },
+  { category: '形象影片', title: '巨大捷安特 Get Greater Toghter 形象影片', youtubeId: 'vOsfIiW5zcU', thumb: '' },
+  { category: '形象影片', title: '士品語文', youtubeId: 'a4k79yTr73A', thumb: '' },
+  { category: '形象影片', title: '小時候蛋餅形象影片～第二部', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '形象影片', title: '小時候蛋餅形象影片～第三部', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '形象影片', title: '小時候蛋餅馬拉松補給形象影片', youtubeId: 'WaxlBAbW76U', thumb: '' },
+  { category: '形象影片', title: '小時後蛋餅沙鹿分店開店', youtubeId: 'zH0OIchCqCo', thumb: '' },
+  { category: '形象影片', title: '永隆跆訓廣告', youtubeId: '6gyWno7yqNE', thumb: '' },
+  { category: '形象影片', title: '亮成機械形象影片', youtubeId: 'bgHpBJiowzA', thumb: '' },
+  { category: '形象影片', title: '雲林縣農會－食材朔源感謝形象影片', youtubeId: '6BXZhSSU-Wg', thumb: '' },
+  { category: '形象影片', title: '雲林縣農會－創意餐點形象影片', youtubeId: 'JvVMFZpp8u0', thumb: '' },
+  { category: '形象影片', title: '喬僑理髮形象影片', youtubeId: 'DPcuF2UvagY', thumb: '' },
+  { category: '形象影片', title: '敦仁醫院形象影片', youtubeId: 'EyjTa-uwQwE', thumb: '' },
+  { category: '形象影片', title: '詠春中醫形象影片', youtubeId: 'gAQZlBLvQuI', thumb: '' },
+  { category: '形象影片', title: '維瓦第建設 鋁模板工法形象影片', youtubeId: 'WEiBGzxHSRA', thumb: '' },
+  { category: '形象影片', title: '築睿科技形象影片', youtubeId: 'J8lLmgCFYus', thumb: '' },
+
+  // ── 活動紀錄（巨大捷安特優先）──
+  { category: '活動紀錄', title: '2022 巨大集團員工日影片', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '2022 巨大捷安特 50 週年慶精華', youtubeId: 'EUWfajRxP8E', thumb: '' },
+  { category: '活動紀錄', title: '2024 巨大員工日', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '2025.10.23 巨大捷安特員工日活動', youtubeId: '8Zg2DPbRrJQ', thumb: '' },
+  { category: '活動紀錄', title: '2024 龍興港悅 尾牙盛宴', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '2025 拍拍印春酒活動精華影片', youtubeId: 'fpH380DBhXY', thumb: '' },
+  { category: '活動紀錄', title: '2025 港威營造尾牙精華影片', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '2025 興富發棒球體驗營精華影片', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '2025 龍舟賽事精華影片', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '2026.1.30 光聖科技歲末旺年會精華影片', youtubeId: 'Hj-ME_eBk40', thumb: '' },
+  { category: '活動紀錄', title: '2026.2.1 昇峰集團旺年會精華影片', youtubeId: '8YPz9GkOAdk', thumb: '' },
+  { category: '活動紀錄', title: '台灣區綜合營造業同業公會 青年委員會交接活動紀錄', youtubeId: '5F7r9cnMvoI', thumb: '' },
+  { category: '活動紀錄', title: '玉龍龍積木磚活動紀錄', youtubeId: 'gNUbXvuJSFI', thumb: '' },
+  { category: '活動紀錄', title: '米穀同業公會理事長交接活動紀錄', youtubeId: '4lMCmXSjRP0', thumb: '' },
+  { category: '活動紀錄', title: '殷老爹春酒精華影片', youtubeId: 'wv5ZuiZpC4M', thumb: '' },
+  { category: '活動紀錄', title: '港威興悅埔里動土典禮精華影片', youtubeId: 'w6TvTUsBTyQ', thumb: '' },
+  { category: '活動紀錄', title: '港威營造動土儀式精華紀錄', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '港謝有你，一路同興 精華版', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '新屋石滬生態觀察公民科學家工作坊', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '滬藝復新 桃園新屋石滬修造技術工作坊', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '臺北市萬和兒童暨社區共好服務中心 開幕茶會暨記者會', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '活動紀錄', title: '環球商務論壇活動紀錄', youtubeId: 'atl7DViUbGQ', thumb: '' },
+  { category: '活動紀錄', title: '聯華電子循環經濟資源創生中心 新建工程動土大典', youtubeId: 'eljYDjVCt40', thumb: '' },
+  { category: '活動紀錄', title: '龍舟應援女孩', youtubeId: 'XXXXXXX', thumb: '' },
+
+  // ── 紀錄片 ──
+  { category: '紀錄片', title: '2022 年花蓮港水巡隊紀錄片', youtubeId: 'q1SHmru6qjQ', thumb: '' },
+  { category: '紀錄片', title: '2023 年水環境巡守隊紀錄片－民生社區發展協會', youtubeId: 'PfOekwhM6r0', thumb: '' },
+  { category: '紀錄片', title: '2023 年台北國際龍舟錦標賽', youtubeId: 'XXXXXXX', thumb: '' },
+
+  // ── 廣告（巨大捷安特優先）──
+  { category: '廣告', title: '巨大捷安特 中國新年影片', youtubeId: 'ohIc8kHTj1c', thumb: '' },
+  { category: '廣告', title: '捷安特聖誕節開箱廣告', youtubeId: 'yg5lMaqpha0', thumb: '' },
+  { category: '廣告', title: '2025 年巨大聖誕節廣告', youtubeId: 'nrb8dkncdLg', thumb: '' },
+  { category: '廣告', title: '2023 年台北國際龍舟錦標賽廣告', youtubeId: 'QPTpjBzxU18', thumb: '' },
+  { category: '廣告', title: '2024 台北國際龍舟錦標賽廣告', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '廣告', title: '2025 台北國際龍舟錦標賽廣告', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '廣告', title: '新北捷運三鶯線廣告－人生樂章篇', youtubeId: 'cvIzxFnk2Xo', thumb: '' },
+  { category: '廣告', title: '新北捷運三鶯線廣告－未來篇', youtubeId: 'H5gE0We1yUk', thumb: '' },
+
+  // ── 短影音 ──
+  { category: '短影音', title: '作品名稱', youtubeId: 'XXXXXXX', thumb: '' },
+
+  // ── 剪輯（巨大捷安特優先）──
+  { category: '剪輯', title: '巨大捷安特商標影片製作', youtubeId: 'lC9YNUJdbVc', thumb: '' },
+  { category: '剪輯', title: '巨大新品色概念影片－BLUR LINE', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '巨大新品色概念影片－CHAOS 混沌', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '巨大新品色概念影片－FLUIDITY', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '巨大聖誕節動畫', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '2025.01 巨大 Monthly Rewind', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '2025.02 Monthly Rewind', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '2025.03 Monthly Rewind', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '2025.04 Monthly Rewind', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '2025.05 Monthly Rewind', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '2025.06 Monthly Rewind', youtubeId: 'XXXXXXX', thumb: '' },
+  { category: '剪輯', title: '2025.07 Monthly Rewind', youtubeId: 'XXXXXXX', thumb: '' },
+];// ──────────────────────────────────────
+
+let activeCategory = 'all';
+
+function checkPassword() {
+  const val = document.getElementById('pw-input').value;
+  const err = document.getElementById('pw-error');
+  if (val === PASSWORD) {
+    document.getElementById('gate').classList.add('fade-out');
+    setTimeout(() => {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('main').style.display = 'block';
+      renderGrid('all');
+    }, 800);
+  } else {
+    err.textContent = '密碼錯誤，請再試一次。';
+    document.getElementById('pw-input').value = '';
+    setTimeout(() => { err.textContent = ''; }, 2500);
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('gate').style.display !== 'none') checkPassword();
+  if (e.key === 'Escape') closeModal();
+});
+
+function filterCategory(cat, btn) {
+  activeCategory = cat;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid(cat);
+}
+
+function renderGrid(cat) {
+  const grid = document.getElementById('grid');
+  const cats = ['形象影片','活動紀錄','紀錄片','廣告','短影音','剪輯'];
+  if (cat === 'all') {
+    grid.innerHTML = '';
+    cats.forEach(c => {
+      const items = VIDEOS.filter(v => v.category === c);
+      if (!items.length) return;
+      const label = document.createElement('div');
+      label.className = 'section-label';
+      label.textContent = c;
+      label.style.gridColumn = '1 / -1';
+      grid.appendChild(label);
+      items.forEach(v => grid.appendChild(makeCard(v)));
+    });
+  } else {
+    grid.innerHTML = '';
+    VIDEOS.filter(v => v.category === cat).forEach(v => grid.appendChild(makeCard(v)));
+  }
+}
+
+function makeCard(v) {
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.onclick = () => openModal(v);
+  div.innerHTML = `
+    <div class="card-thumb">
+      ${(v.thumb || (v.youtubeId && v.youtubeId !== 'XXXXXXX'))
+        ? `<img src="${v.thumb || 'https://img.youtube.com/vi/' + v.youtubeId + '/mqdefault.jpg'}" alt="${v.title}" loading="lazy">`
+        : `<div class="thumb-placeholder">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <rect x="4" y="8" width="40" height="32" rx="3" stroke="#c9a84c" stroke-width="1.2"/>
+              <path d="M20 17l12 7-12 7V17z" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
+            </svg>
+           </div>`}
+      <div class="play-btn">
+        <div class="play-circle">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 4l7 4-7 4V4z" fill="#c9a84c"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="card-info">
+      <span class="card-tag">${v.category}</span>
+      <div class="card-title">${v.title}</div>
+    </div>`;
+  return div;
+}
+
+function openModal(v) {
+  const wrap = document.getElementById('video-wrap');
+  document.getElementById('modal-title').textContent = v.title;
+  if (v.youtubeId && v.youtubeId !== 'XXXXXXX') {
+    wrap.innerHTML = `<iframe src="https://player.vimeo.com/video/${v.youtubeId}?autoplay=1&color=c9a84c&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+  } else {
+    wrap.innerHTML = `<div class="vimeo-placeholder">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="2" y="5" width="36" height="30" rx="3" stroke="#c9a84c" stroke-width="1"/><path d="M16 13l12 7-12 7V13z" stroke="#c9a84c" stroke-width="1" fill="none"/></svg>
+      <div>尚未填入 YouTube 影片 ID</div>
+      <div class="vid-id">請在 VIDEOS 陣列中填入 youtubeId</div>
+    </div>`;
+  }
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('video-wrap').innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+function closeModalOnBg(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+</script>
+</body>
+</html>
